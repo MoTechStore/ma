@@ -1,0 +1,46 @@
+{% include 'rms/header.html' %}
+
+{% load static %}
+<link href="{% static 'css/kye.css' %}" rel="stylesheet">
+<link href="{% static 'rms/css/mo.css' %}" rel="stylesheet">
+
+<style type="text/css">
+	#bg{
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100%;
+	}
+</style>
+<body id="bg" style="background-image: url('{% static "img/five.jpg"%}');">
+        <div class="filter"></div>
+        <div class="container" style="width: 400px">
+           <h3 class="text-primary" style="text-align: center;">Login  Form</h3>
+           <br>
+            <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+                <label>Username</label><br>
+                <input type="text" name="username" required="Fill Username"><br>
+                <label>Password</label><br>
+                <input type="password" name="password" required="Fill Password"><br>
+                <button>Log in</button>
+            </form>
+            <br>
+
+                  <div class="card-footer" style="width: 400px">
+        <div class="d-flex justify-content-center">
+              {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+
+                    <a class="alert alert-success" style="color:red;"> {{ message }}</a>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+              </div>
+      </div>
+        </div>
+        
+    </body>
+    
+</html>

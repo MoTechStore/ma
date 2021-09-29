@@ -1,0 +1,52 @@
+{% include 'rms/header.html' %}
+{% load static %}
+
+
+
+<style type="text/css">
+  #bg{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+  }
+</style>
+
+ <link href="{% static 'rms/css/style2.css' %}" rel="stylesheet">
+
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="col-md-6 offset-md-3 mt-5">
+            <a target="_blank" href="L">
+               <img src=''>
+             </a>
+             <br>
+
+             {% if prediction %}
+
+            AI Insighted Personality Is  {{ prediction }}
+
+            {% endif %}
+        
+             <h2>AI Personality Insight Through CV</h2>
+
+             <p>Based on MBTI There are 16 Personality Types, Upload CV and Hit Predict Button To Predict Your Personality</p>
+             <form action="" method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+               <hr>
+               <div class="form-group mt-3">
+                 <label class="mr-2">Upload your CV:</label>
+                 <input type="file" name="report" accept="application/pdf,application/vnd.ms-excel">
+               </div>
+               <hr>
+               <button type="submit" class="btn btn-primary">Predict</button>
+             </form>
+         </div> 
+
+
+    </div>
+</div>
+
+
+ 

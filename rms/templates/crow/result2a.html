@@ -1,0 +1,183 @@
+{% load static %}
+
+<link href="{% static 'css/search.css' %}" rel="stylesheet">
+<link href="{% static 'css/all.css' %}" rel="stylesheet">
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+
+
+
+<nav class="navbar fixed-top" id="body" style="padding-left: 205px">
+                          <div class="col-8 col-md-10 col-lg-8" id="navbar" style="padding-left: 100px">
+                          <center><h1
+style="color: white; font-weight: bold; font-size:300%; font-style: italic; letter-spacing: 45px">Pelcon</h1></center>
+                          <form class="card card-sm" action="/search" method="get" id="navbar" style="height: 100px;">
+                                <div class="card-body row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                        <input class="form-control form-control-lg form-control-borderless" type="search" name="query" placeholder="Search for a file" id="query">
+                                    </div>
+
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" class="navbar-button col-xs-1" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                          </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+
+  
+
+
+</nav>
+
+
+<body id="body">
+
+
+
+
+<div class="container">
+<br>
+    <div class="row justify-content-center">
+<!--        Sticky Top Nav Header -->
+
+  <style type="text/css">
+    .form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+  </style>
+
+  <div class="row justify-content-center">
+                        <div class="col-8 col-md-10 col-lg-8" id="navbar">
+                          <center><h1
+style="color: white; font-weight: bold; font-size:300%; font-style: italic; letter-spacing: 45px">Pelcon</h1></center>
+                          <form class="card card-sm" action="/search" method="get" id="navbar" style="height: 100px;">
+                                <div class="card-body row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                        <input class="form-control form-control-lg form-control-borderless" type="search" name="query" placeholder="Search for a file" id="query">
+                                    </div>
+
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" class="navbar-button col-xs-1" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                          </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+
+</div>
+
+
+
+
+
+<div class="row">
+    <!--    On Scroll Result body -->
+        <div id="content-wrapper" id="search_result">
+        <div class="container-fluid">
+            <div class="card mb-3">
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                   
+
+                        {% if files %}
+                         <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Document Name</th>
+                                <th>File Number</th>
+                                <th>Cupboard Number</th>
+                                <th>Shelve Number</th>
+                                <th>Description</th>
+                  
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for file in files %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ file.document_name }}</td>
+                                    <td>{{ file.file_number }}</td>
+                                    <td>{{ file.cupboard_number }}</td>
+                                    <td>{{ file.shelve_number }}</td>
+                                    <td>{{ file.about_document }}</td>
+                                </tr>
+                            {% endfor %}
+                        {%else%}
+
+<center><h3 style="text-align:center; color:yellow; background: green; width: 990px" id="answer">No Search Found</h3></center>
+
+                <style type="text/css">
+                  #search_result {
+                 display: none;
+                 }
+    </style>
+
+                       {%endif%}    
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    {%if messages %}
+    {%for message in messages%}
+    alert('{{message}}');
+    {%endfor%}
+    {%endif%}
+</script>
+<br><br><br>
+  </div>
+</div>
+
+<script>
+
+    $(document).on("scroll", function(){
+        if
+      ($(document).scrollTop() > 86){
+          $("#banner").addClass("shrink");
+        }
+        else
+        {
+            $("#banner").removeClass("shrink");
+        }
+    });
+</script>
+    
+</body>

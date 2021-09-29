@@ -1,0 +1,23 @@
+#sidebar {
+  background-color: green;
+  background-blend-mode: hard-light;
+  background-repeat: no-repeat;
+
+  background-image:
+    url(''),
+    linear-gradient(to bottom, #23074d, #cc5333);
+  background-size: cover;
+}
+
+
+
+#navbar{
+  background-color: green;
+  background-blend-mode: hard-light;
+  background-repeat: no-repeat;
+
+  background-image:
+    url(''),
+    linear-gradient(to bottom, #23074d, #cc5333);
+  background-size: cover;
+}

@@ -1,0 +1,67 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+<div id="content" class="p-8 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Files Made Easy</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    Add File Information
+                </div>
+                <div class="card-body">
+               <form action="{% url 'save_data' %}" method="POST">
+                {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="document_name" placeholder="Document Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="document_number" placeholder="Document Number" required="required"></div>
+            </div>          
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="file_name" placeholder="File Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="file_number" placeholder="File Number" required="required"></div>
+            </div>          
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="cupboard_name" placeholder="Cupboard Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="cupboard_number" placeholder="Cupboard Number" required="required"></div>
+            </div>          
+        </div>
+
+      <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="shelve_number" placeholder="Shelve Number" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="about_document" placeholder="Description" required="required"></div>
+            </div>          
+        </div>
+         <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="ref_number" placeholder="Reference Number" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="name_list" placeholder="List Of Names" required="required"></div>
+            </div>          
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Add Now</button>
+        </div>
+    </form>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

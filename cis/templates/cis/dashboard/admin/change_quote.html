@@ -1,0 +1,34 @@
+{% extends "dashboard/admin/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+<div id="content" class="p-8 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Know Your Employees</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Add Task Information
+                </div>
+                <div class="card-body">
+
+        
+ <form method="post" action="" enctype="multipart/form-data">
+ {% csrf_token %}
+ {{ form.as_p }}
+ <button type="submit">{% trans "Save" %}</button>
+ </form>
+
+
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'dashboard/admin/base.html' %}
+
+{% load static %}
+{% block body %}
+
+
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">KYE List Of Tasks</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Investigation Case
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Task Title</th>
+                                <th>Task Category</th>
+                                <th>Task Owner</th>
+                                <th>Description</th>
+                                <th>Task Deadline</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if latest_task_list %}
+                            {% for task in latest_truck_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ task.task_tittle }}</td>
+                                    <td>{{ task.task_category }}</td>
+                                    <td>{{ task.task_owner }}</td>
+                                    <td>{{ task.task_description }}</td>
+                                    <td>{{ task.task_deadline }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% elif getdata %}
+
+                        {% for task in getdata %}
+                                <tr>
+                                    <!-- instead $i++ in php -->
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ task.task_title }}</td>
+                                    <td>{{ task.task_onwer }}</td>
+                                    <td><img src="{{ MEDIA_URL }}{{ question.image }}" style="width: 60px;"></td>
+                                    <td><img src="{{ MEDIA_URL }}{{ question.file }}" style="width: 60px;"></td>
+                                    <td>
+                                        <a href="{% url 'firstapp:editdata' question.id %}">View</a> | <a href="{% url 'firstapp:editdata' question.id %}">Edit</a> | 
+                                        <a onclick="return confirm('Are you sure wat to delete ?');" href="{% url 'firstapp:deletedata' question.id %}">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                                <tr>
+                                <td colspan="5">No Data Avaible ..</td>
+                            </tr>
+                        {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    </script>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

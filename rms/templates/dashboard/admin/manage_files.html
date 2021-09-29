@@ -1,0 +1,92 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+<div id="content" class="p-8 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" style="color: blue">Files Made Easy</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    Manage Added Files
+                </div>
+                <div class="card-body">
+
+
+
+                     {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>File Name</th>
+                                <th>Cupboard Name</th>
+                                <th>Cupboard No</th>
+                                <th>Reference No</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if stores %}
+                            {% for store in stores %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ store.file_name }}</td>
+                                    <td>{{ store.cupboard_name }}</td>
+                                    <td>{{ store.cupboard_number }}</td>
+                                    <td>{{ store.ref_number }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href=""> <span class="fa fa-edit"></span> View</a>
+                                        <a class="btn btn-sm btn-warning" href=""> <span class="fa fa-edit"></span> Edit</a>
+                                        <a class="btn btn-sm btn-danger" href=""><span class="fa fa-trash"></span> Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% elif getdata %}
+
+                        {% for task in getdata %}
+                                <tr>
+                                    <!-- instead $i++ in php -->
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ task.task_title }}</td>
+                                    <td>{{ task.task_onwer }}</td>
+                                    <td><img src="{{ MEDIA_URL }}{{ question.image }}" style="width: 60px;"></td>
+                                    <td><img src="{{ MEDIA_URL }}{{ question.file }}" style="width: 60px;"></td>
+                                    <td>
+                                        <a href="{% url 'firstapp:editdata' question.id %}">View</a> | <a href="{% url 'firstapp:editdata' question.id %}">Edit</a> | 
+                                        <a onclick="return confirm('Are you sure wat to delete ?');" href="{% url 'firstapp:deletedata' question.id %}">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                                <tr>
+                                <td colspan="5">No Data Avaible ..</td>
+                            </tr>
+                        {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

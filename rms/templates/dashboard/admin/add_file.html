@@ -1,0 +1,74 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+<div id="content" class="p-8 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+
+
+
+
+  
+
+
+                <li class="breadcrumb-item">
+                    <a href="#" style="color: #999965; font-weight: bold; letter-spacing: 10px">Record Management System</a>
+                    
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    File Information
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+               <form action="{% url 'savefile' %}" method="POST">
+                {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="file_name" placeholder="File Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="file_number" placeholder="File Number" required="required"></div>
+            </div>          
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="cupboard_name" placeholder="Cabinet Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="cupboard_number" placeholder="Cabinet Number" required="required"></div>
+            </div>          
+        </div>
+
+      <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="shelve_number" placeholder="Shelve Number" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="about_document" placeholder="Description" required="required"></div>
+            </div>          
+        </div>
+         <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="ref_number" placeholder="Reference Number" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="name_list" placeholder="Keywords" required="required"></div>
+            </div>          
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block" style="background-color: #999965">Submit</button>
+        </div>
+    </form>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="col-md-10 col-sm-4 col-xs-4">
+<div id="content" class="p-8 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+
+                <a href="#" style="color: #999965; font-weight: bold; letter-spacing: 10px">Record Management System</a>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    Outgoing Letter's Information
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+               <form action="{% url 'sentletter' %}" method="POST">
+                {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+            <div class="col"><input type="text" class="form-control" name="sender_name" placeholder="Sender Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="receiver_name" placeholder="Receiver Name" required="required"></div>
+            </div>          
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="receiver_address" placeholder="Receiver Address" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="contact" placeholder="Receiver Contact" required="required"></div>
+            </div>          
+        </div>
+      <div class="form-group">
+            <div class="row">
+                <div class="col">
+             <input type="text" class="form-control" name="ref_number" placeholder="Reference Number" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="desc" placeholder="Description" required="required"></div>
+            </div>          
+        </div>
+
+
+         <div class="form-group">
+            <div class="row">
+                <div class="col">Dispatch Date
+             <input value="dd-mm-yyyy"
+             min="2014-01-01" max="2021-12-12" required="required" type="date" class="form-control" name="date" placeholder="Received Date" required="required"></div>
+                <div class="col"></div>
+            </div>          
+        </div>
+        <div class="form-group">
+           <button type="submit" class="btn btn-success btn-lg btn-block" style="background-color: #999965">Submit</button>
+        </div>
+    </form>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

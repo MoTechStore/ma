@@ -1,0 +1,92 @@
+{% extends 'cis/dashboard/officer/base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="container-fluid" style="padding-top: 20px">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" style="color: #999965; font-weight: bold; letter-spacing: 10px">Case Inventory System</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header text-success">
+                    <i class="fas fa-table"></i>
+                    Please Fill In Below Case Details
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+               <form action="{% url 'publish' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="task_title" placeholder="Case Title" required=""></div>
+                <div class="col"><input type="text" class="form-control" name="task_customer" placeholder="Customer Name" required=""></div>
+            </div>          
+        </div>
+        <div class="form-group">
+            <div class="row">
+
+                <div class="col"><input type="text" class="form-control" name="supervisor" placeholder="Case Supervisor" required=""></div>
+                 <div class="col"><input type="text" class="form-control" name="task_desc" placeholder="Case Description" required=""></div>              
+            </div>          
+        </div>
+          <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="amount" placeholder="Price Charged" required=""></div>
+                <div class="col"><input type="text" class="form-control" name="modus" placeholder="Modus Operandi" required=""></div>
+            </div>          
+        </div>
+
+          <div class="form-group">
+            <div class="row">
+                <div class="col"><input type="text" class="form-control" name="suspect" placeholder="Person of Interest" required=""></div> 
+                <div class="col"><input type="text" class="form-control" name="comment" placeholder="Comment" required=""></div>
+            </div>          
+        </div>
+         <div class="form-group">
+            <div class="row">
+                 <div class="col"><input type="text" class="form-control" name="task_days" placeholder="Working Days" required=""></div>
+                 <div class="col"></div>
+            </div>          
+        </div>
+
+         <div class="form-group">
+            <div class="row">
+               <span style="padding-left: 15px">Deadline</span>
+                <div class="col"><input type="date" id="start" name="task_deadline" value="dd-mm-yyyy"
+             min="2014-01-01" max="2021-12-12" required="required"></div>
+            </div>          
+        </div>
+
+<!--
+                 <div class="form-group">
+            <div class="row">
+                <div class="col"><label>Report</label>
+                    <input type="file" id="myFile" name="report" placeholder="Report Attachment" enctype="multipart/form-data"></div>
+                <div class="col"><div class="col"><label>Invoice</label>
+                    <input type="file" id="myFile" name="invoice" placeholder="Invoice Attachment" enctype="multipart/form-data"></div>
+            </div>          
+        </div>
+    </div>
+-->
+
+        <div class="form-group">
+            <button type="submit" style="background-color: #999965" class="btn btn btn-lg btn-block" href="">Add Now</button>
+        </div>
+    </form>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

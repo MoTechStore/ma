@@ -1,0 +1,141 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<body id="body">
+
+<div class="container">
+  <style type="text/css">
+    .form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+  </style>
+
+ 
+<div class="row" style="padding-top: 40px">
+    <!--    On Scroll Result body -->
+        <div id="content-wrapper" id="search_result">
+        <div class="container-fluid">
+            <div class="card mb-3">
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                   
+
+                        {% if files %}
+                        <center><h3 style="text-align:center; color:white; background: #999965; width: 1060px" id="answer">Search Results</h3></center>
+
+                         <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>File Name</th>
+                                <th>File Number</th>
+                                <th>Cabinet Name</th>
+                                <th>Cabinet Number</th>
+                                <th>Description</th>
+                        
+                  
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for file in files %}
+                               <tr>
+                                    <td>{{ file.id }}</td> 
+                                    <td>{{ file.file_name }}</td>
+                                    <td>{{ file.file_number }}</td>
+                                    <td>{{ file.cupboard_name }}</td>
+                                    <td>{{ file.cupboard_number }}</td>
+                                    <td>{{ file.about_file }}</td> 
+                                </tr>
+                            {% endfor %}
+                        {%else%}
+
+
+
+
+<center><h3 style="text-align:center; color:white; background: #999965; width: 1060px" id="answer">No Search Found</h3></center>
+
+                <style type="text/css">
+                  #search_result {
+                 display: none;
+                 }
+    </style>
+
+                       {%endif%}    
+                            </tbody>
+                        </table>
+
+                        {% if files.has_other_pages %}
+    <ul class="pagination">
+        {% if files.has_previous %}
+            <li class="waves-effect"><a href="?page=
+                    {{ files.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons text-primary">&laquo;</i></a></li>
+        {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons text-primary">&laquo;</i></a></li>
+        {% endif %}
+        {% for num in files.paginator.page_range %}
+            {% if files.number == num %}
+                <li class="active"><a href="#!">{{ num }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a
+                        href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if files.has_next %}
+            <li class="waves-effect"><a
+                    href="?page={{ files.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">&raquo;</i></a></li>
+        {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons">&raquo;</i></a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    {%if messages %}
+    {%for message in messages%}
+    alert('{{message}}');
+    {%endfor%}
+    {%endif%}
+</script>
+<br><br><br>
+  </div>
+</div>
+
+
+<script>
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-success").slideUp(500);
+    });
+    $(".alert-error").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-error").slideUp(500);
+    });
+</script>
+
+    
+</body>
+
+{% endblock %}

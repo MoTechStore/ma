@@ -1,0 +1,151 @@
+{% extends 'bonge/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link href="{% static 'crow/css/style2.css' %}" rel="stylesheet">
+<link href="{% static 'bonge/vendor/bootstrap/three/css/bootstrap.min.css' %}" rel="stylesheet">
+<script src="{% static 'bonge/vendor/jquery/jquery.js' %}"></script>
+
+<link href="{% static 'bonge/vendor/bootstrap/four/css/bootstrap.min.css' %}" rel="stylesheet">
+<div class="col-md-12 col-md-offset-4">
+
+<div class="card mb-6" style="padding-top: 120px">
+  <img style="height: 200px" src="{% static 'bonge/images/car 4.jpg' %}" class="card-img-top" alt="...">
+  <div class="card-body">
+
+   {% if messages %}
+    {% for message in messages %}
+    <div class="messages">
+
+    <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>
+  <a class="alert alert-success" style="color:red;"> {{ message }}</a>
+  </strong>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+
+    <center><h5 class="card-title text-primary">Please Fill In The Information of Claimant</h5></center>
+
+    <form method="POST" action="{% url 'insurance' %}" id="myform">
+      {% csrf_token %}
+    <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-6">
+    <select name="gender">
+     <option value="" selected disabled hidden>Please Choose Here</option>
+     <option value="1">Male</option>
+     <option value="0">Female</option>
+     </select>   
+        </div>
+    </div>
+
+       <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Marital Status</label>
+        <div class="col-sm-6">
+    <select name="marital">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="2">Single</option>
+     <option value="1">Married</option>
+     </select>   
+        </div>
+    </div>
+
+       <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Licence Type</label>
+        <div class="col-sm-6">
+    <select name="licence">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="1">Blank</option>
+     <option value="0">Mentioned</option>
+     </select>   
+        </div>
+    </div>
+
+       <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Injury Type</label>
+        <div class="col-sm-6">
+    <select name="injury">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="1">Collision</option>
+     <option value="0">Personal injury</option>
+     </select>   
+        </div>
+    </div>
+
+       <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Police Notified</label>
+        <div class="col-sm-6">
+    <select name="police">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="1">Yes</option>
+     <option value="0">No</option>
+     </select>   
+        </div>
+    </div>
+
+       <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Injury Day</label>
+        <div class="col-sm-6">
+    <select name="day">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="1">Week Day</option>
+     <option value="0">Week End</option>
+     </select>   
+        </div>
+    </div>
+
+
+
+    <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Witness</label>
+        <div class="col-sm-6">
+    <select name="witness">
+     <option value="" selected disabled hidden>Please Choose here</option>
+     <option value="1">Yes</option>
+     <option value="0">No</option>
+     </select>   
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Claimed Amount</label>
+        <div class="col-sm-6">
+          <input type="text" name="amount" placeholder="Claimed Amount">   
+        </div>
+    </div>
+
+        <div class="form-group row">
+        <label for="Symptom1" class="col-sm-2 col-form-label">Vehicle Age</label>
+        <div class="col-sm-6">
+          <input type="text" name="age" placeholder="Age of Vehicle">   
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-primary" id="btn">Predict</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <a href=""></a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+{% endblock %}

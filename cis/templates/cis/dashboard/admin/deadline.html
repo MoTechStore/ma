@@ -1,0 +1,118 @@
+{% extends 'cis/dashboard/admin/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container-fluid" style="padding-top: 15px">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+             <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" style="color: #999965; font-weight: bold; letter-spacing: 10px">Case Inventory System</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header text-success">
+                    <i class="fas fa-table"></i>
+                    List Of Investigation Pending Cases
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Customer</th>
+                                <th>Supervisor</th>
+                                <th>Status</th>
+                                <th>Days</th>
+                                <th>Update Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if tasks %}
+                            {% for task in tasks %}
+                                <tr>
+                                    <td>{{ task.id }}</td> 
+                                    <td>{{ task.task_title }}</td>
+                                    <td>{{ task.task_customer }}</td>
+                                    <td>{{ task.supervisor }}</td>
+                                    <td>{{ task.status }}</td> 
+                                    <td>{{ task.exceed_days }}</td>
+                                   <td>
+                <a href="{% url 'update_status' task.pk %}"><button type="button" class="btn btn-primary"> Update Status</button></a>
+                 </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                            </tbody>
+                        </table>
+  
+
+                          {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal-->
+     {% if trucks %}
+            {% for truck in trucks %}
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: blue">Ready to Delete?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" style="color: red;"><h5> Select "Delete" below if you want to Delete</h5></div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
+               <a class="btn btn-danger" href="">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+  {% endfor %}
+      {% endif %}
+
+  </tbody>
+</table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

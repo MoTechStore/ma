@@ -1,0 +1,49 @@
+{% extends 'dashboard/admin/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+              <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">Customer Name : {{ object.name }} </a>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    Details Of Investigation Cases
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Task Name:</strong> {{ object.task_title }}</li>
+              <li class="list-group-item"><strong>Customer Name:</strong> {{ object.task_customer }}</li>
+              <li class="list-group-item"><strong>Task Deadline:</strong> {{ object.task_deadline }}</li>
+              <li class="list-group-item"><strong>Task Revenue:</strong> {{ object.task_revenue }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row top-buffer" style="padding-top: 10px">
+        <div class="col-12">
+                <a href="{% url 'manage-tasks' %}"><button type="button" class="btn btn-success">Back</button></a>
+        </div>
+    </div>
+                  
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

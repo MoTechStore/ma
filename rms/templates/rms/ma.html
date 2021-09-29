@@ -1,0 +1,266 @@
+{% load static %}
+
+
+<link href="{% static 'rms/css/style2.css' %}" rel="stylesheet">
+
+  <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+    <style type="text/css">
+      #bg{
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+      }
+    </style>
+
+
+{% include 'rms/header.html' %}
+
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+ 
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+  <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+</head>
+
+<body id="bg" style="background-image: url('{% static "img/five.jpg"%}');">
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+
+              <a href="#">
+
+
+
+                <img src="{% static 'rms/dist/images/logo.png' %}" class="mo" alt="...">
+
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+
+            
+
+            </div>
+            <br>
+
+             <div class="d-flex justify-content-center">
+              {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+
+                    <p class="alert alert-success" style="color:green;"> {{ message }}</p>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+              </div>
+
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+            <div class="hero-copy">
+                          <h1 class="hero-title mt-0">MA Online Services</h1>
+                          <p class="hero-paragraph" style="color:white">Our MA Inhouse Portal, simpfies searching in Database, Once you search any people on top right corner search bar. Artficial Intelligence search engine based, find the query in Insurance, KYE, Case inventory and File tracking which is RMS(Record Management System). As achieved, the purpose of MA Portal is to combine all database and simplify the search once given KYE, Investigation or Insurance claim case. As it is built on Natural Language Processing and Supervised Machine Learning which are part of Artificial Intelligence, the portal will be modified as dataset size increases. Therefore, raise the effeciency of MA portal.</p>
+                          <div class="hero-cta"><a class="button button-primary" href="#">Mwema Advocates</a><a class="button" href="#">MA Solutions</a></div>
+            </div>
+            <div class="hero-figure anime-element">
+              <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                <rect width="528" height="396" style="fill:transparent;" />
+              </svg>
+              <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+              <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+              <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+              <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+              <div class="hero-figure-box hero-figure-box-05"></div>
+              <div class="hero-figure-box hero-figure-box-06"></div>
+              <div class="hero-figure-box hero-figure-box-07"></div>
+              <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+              <div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+              <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+            </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features section">
+                <div class="container">
+          <div class="features-inner section-inner has-bottom-divider">
+                        <div class="features-wrap">
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+                                     
+                                    </div>
+                                    <h4 class="feature-title mt-24"></h4>
+                                    <p class="text-sm mb-0">
+                                      
+                                    </p>
+                                </div>
+                            </div>
+              <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+                                
+
+                  
+                                    </div>
+                                    <h4 class="feature-title mt-24"></h4>
+                                    <p class="text-sm mb-0">
+                                      
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+              
+
+
+                                    </div>
+                                    <h4 class="feature-title mt-24"></h4>
+                                    <p class="text-sm mb-0"></p>
+                                </div>
+                            </div>
+
+
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+                                      <img src="{% static 'rms/dist/images/feature-icon-04.svg' %}" alt="Feature 04">
+
+                                    </div>
+                                    <h4 class="feature-title mt-24">File Tracking</h4>
+                                    <p class="text-sm mb-0" style="color: white">Record management is advanced as part of archiving. We have improved from traditional method of tracking files to modern way of tracking files. By using File tracker, you can use it to track the cabinet of the file and achieve quick</p>
+                                </div>
+                            </div>
+              <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+                                      <img src="{% static 'rms/dist/images/feature-icon-05.svg' %}" alt="Feature 05">
+
+                                    </div>
+                                    <h4 class="feature-title mt-24">Case Inventory</h4>
+                                    <p class="text-sm mb-0" style="color: white">This is inventory of all investigation done by Mwema Advocates. All cases, culprit and supervisors are registered in the case. The inventory helps in making analysis of client's cases and getting the overview of cases.</p>
+                                </div>
+                            </div>
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+
+                                      <img src="{% static 'rms/dist/images/feature-icon-06.svg' %}" alt="Feature 06">
+
+                                    </div>
+                                    <h4 class="feature-title mt-24">Insurance Prediction</h4>
+                                    <p class="text-sm mb-0" style="color: white">This is AI solution for predicting insurance claim. It uses Artificial Intelligence techniques for learning term frequency used in fraud claim. Time by time the model is improved and model increases the efficiency. But before making prediction, we highly recommendation to use the search bar on the navigation. To check if claimant is in MA database.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+      <section class="cta section">
+        <div class="container">
+          <div class="cta-inner section-inner">
+            <h3 class="section-title mt-0">MA Portal</h3>
+            <div class="cta-cta">
+              <a class="button button-primary button-wide-mobile" href="#">Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="brand footer-brand">
+            <a href="#">
+
+              <img src="{% static 'rms/dist/images/logo.svg' %}" alt="Logo">
+            </a>
+                    </div>
+                    <ul class="footer-links list-reset">
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#">About us</a>
+                        </li>
+                        <li>
+                            <a href="#">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                    </ul>
+                    <ul class="footer-social-links list-reset">
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Facebook</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z" fill="#0270D7"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Twitter</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 3c-.6.3-1.2.4-1.9.5.7-.4 1.2-1 1.4-1.8-.6.4-1.3.6-2.1.8-.6-.6-1.5-1-2.4-1-1.7 0-3.2 1.5-3.2 3.3 0 .3 0 .5.1.7-2.7-.1-5.2-1.4-6.8-3.4-.3.5-.4 1-.4 1.7 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.5-.4C.7 7.7 1.8 9 3.3 9.3c-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H0c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4C15 4.3 15.6 3.7 16 3z" fill="#0270D7"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Google</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" fill="#0270D7"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer-copyright">&copy; 2021 MA</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{% static 'rms/dist/js/main.min.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+    <div class="container-fluid">
+        <div col="md-5">
+            <a class="navbar-brand" href="#"></a>
+        </div>
+      
+    </div>
+  </nav>
