@@ -135,7 +135,7 @@ def media_check(request):
         # Concatenate business entity name vs due diligence or KYE keyword list
         due_diligence_list = []
         try:
-            if service == 'General Search':
+            if service == 'Criminal Search':
                 due_diligence_kw = ['arrested', 'imprisoned', 'indicted', 'investigated', 'jailed',
                 'sentenced', 'detention', 'probation', 'bail', 'criminal', 'judgment',
                 'judge', 'jury', 'lawyer', 'investigation', 'trial', 'lawsuit',
@@ -235,7 +235,7 @@ def media_check(request):
         a.save()
         return redirect('report')                        
     else:
-        service = ['General Search', 'Social Media']
+        service = ['Criminal Search', 'Media Search', 'General Search']
         context = {'service':service}
         return render(request, 'rms/media_check.html', context)
 
