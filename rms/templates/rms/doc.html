@@ -1,0 +1,52 @@
+{% include 'rms/header.html' %}
+{% load static %}
+
+
+
+<style type="text/css">
+  #bg{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+  }
+</style>
+
+ <link href="{% static 'rms/css/style2.css' %}" rel="stylesheet">
+
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="col-md-6 offset-md-3 mt-1">
+          <p>
+             {% if prediction %}
+             {% if prediction == 'Thanks All Documents Are Attached'%}
+             CV, Consent and Form IV Certificate Are Attached
+             {% else %}
+            Compulsory Documents Are CV, Consent and Form IV Certificate
+            But You Have Only Attached {{ prediction }}
+            {% endif %}
+            {% endif %}
+          </p>
+        
+             <h2>Document Verification</h2>
+
+             <p>Browse to Verifiy if document has CV, Consent and Form IV Certificate</p>
+             <form action="" method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+               <hr>
+               <div class="form-group mt-3">
+                 <label class="mr-2">Upload PDF Document:</label>
+                 <input type="file" name="report" accept="application/pdf,application/vnd.ms-excel">
+               </div>
+               <hr>
+               <button type="submit" class="btn btn-primary">Predict</button>
+             </form>
+         </div> 
+
+
+    </div>
+</div>
+
+
+ 

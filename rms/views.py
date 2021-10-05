@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from cis.models import Task
 from insurance.models import Insurancefile
 from kye.models import Employee, Company
-from rms.models import File,Letter,Letters
+from rms.models import File,Letter,Letters,Myfile
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -34,6 +34,7 @@ import pandas as pd
 import string
 import os
 import fitz
+import ocrmypdf
 
 from django.conf import settings
 
@@ -51,6 +52,262 @@ from bootstrap_modal_forms.generic import (
 
 from rake_nltk import Rake
 rake_nltk_var = Rake()
+
+
+from googlesearch import search
+from newspaper import Article
+from newspaper import Config
+import requests
+import nltk
+import getpass
+import random
+
+
+import nltk
+nltk.download('punkt')
+
+# Browser configuration
+user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'
+config = Config()
+config.browser_user_agent = user_agent
+
+
+
+def ocr(file_path, save_path):
+    ocrmypdf.ocr(file_path, save_path, skip_text=True)
+
+
+
+def download_file(request):
+    files = Myfile.objects.all().order_by('-id')[:10]
+    print(files)
+    context = {'files':files}
+    return render(request, 'rms/download.html', context)
+
+
+def media_check(request):
+    if request.method == "POST":
+        entity = request.POST['entity']
+        service = request.POST['service']
+        print(entity)
+        print(service)
+
+        # Split the business entity name
+        data = entity.split()
+        data = data[0]
+        print(data)
+
+        # Random number generation
+        import random
+        no = random.sample(range(1, 1000), 1)
+        no = str(no[0])
+        print(no)
+        print(type(no))
+
+        # Generate folder name
+        folder_name = data+'_'+no
+        print('folder name',folder_name)
+        
+        username = getpass.getuser()
+        mypath = 'C:/Users/Public/motech/DJANGO/ma/media/'
+        rep_folder = mypath + folder_name
+        print('Report Folder',rep_folder)
+        
+        os.makedirs(rep_folder)
+
+        # Create a file for storing Due Diligence URL
+        filea = "due_diligence_result.txt"
+        file1 = mypath +folder_name+'/'+filea
+        print('file path',file1)
+        
+        # Create File For Storing Due Diligence URL
+        fileb = "correct_url.txt"
+        file2 = mypath +folder_name+'/'+ fileb
+        print(file2)
+        
+        
+        # Create file for writing URL summary
+        filec = "due_diligence_summary.txt"
+        file3 = mypath +folder_name+'/'+ filec
+        print(file3)
+
+
+        # Concatenate business entity name vs due diligence or KYE keyword list
+        due_diligence_list = []
+        try:
+            if service == 'General Search':
+                due_diligence_kw = ['arrested', 'imprisoned', 'indicted', 'investigated', 'jailed',
+                'sentenced', 'detention', 'probation', 'bail', 'criminal', 'judgment',
+                'judge', 'jury', 'lawyer', 'investigation', 'trial', 'lawsuit',
+                'complaint', 'plaintiff', 'defendant', 'probe', 'attorney', 'fraud',
+                'embezzlement', 'corruption', 'corrupted', 'insider trading', 'theft',
+                'scam', 'charged', 'bribery', 'conviction', 'police', 'money laundering',
+                'bribes', 'judicial', 'fined', 'prosecution', 'violations', 'evasion',
+                'indictment', 'allegations', 'arrested', 'imprisoned','indicted', 'investigated',
+                'jailed', 'sentenced', 'criminal database', 'interpol', 'detention', 
+                'probation', 'bail', 'criminal', 'judge', 'scam', 'imprisoned', 'not for public distribution',
+                'classified', 'sourcing AND recruitment', 'linkedin','TIN Number', 'TRA', 'brella', 'company shares', 'share holder', 'business name', 'rocketreach.co', 'Tanzania', 'habari']
+                for i in due_diligence_kw:
+                    if i not in due_diligence_list:
+                        due_diligence_list.append(entity + ' ' + i)
+            else:
+                kye_kw = ['habari', 'mpira','club', 'police', 'askari', 'barabarani', 'pesa','pombe','michezo','siasa', 'facebook', 'twitter', 'instagram', 'linkedin', 'pinterest',
+                'tiktok', 'clubhouse', 'jamiiforums', 'telegram', 'youtube', 'tinder', 'bumble.com',
+                'hinge','okcupid', 'happn', 'theleague', 'clover', 'match',
+                'afrointroductions', 'metrodate', 'datememe','wachumbatz', 'mingle2', 'datingbuzz', 'rocketreach', 'Tanzania', 'habari']
+                for i in kye_kw:
+                    if i not in due_diligence_list:
+                        due_diligence_list.append(entity + ' ' + i)
+        except Exception as e:
+            print(e)
+        
+        print(due_diligence_list)
+        
+        # Scrape URL which has matched business entity and due dilligence keyword
+        textfile = open(file1, "w")
+        try:
+            for diligence in due_diligence_list:
+                for i in search(diligence):
+                    print(i)
+                    textfile.write(i + "\n")
+        except Exception as e:
+            print(e)            
+
+
+        # Remove all URL's and store in list
+        lines = [ ]
+        with open(file1) as a:
+            lines = [line.rstrip() for line in a]
+        print(len(lines))
+
+        # Remove Duplicate URL's
+        lines = list(dict.fromkeys(lines))
+
+        # Remove URL's endswith .pdf
+        lines = [val for val in lines if not val.endswith(".pdf")]
+
+        # Find Matched URL
+        open(file2, "w").close()
+        for i in lines:
+            try:
+                response = requests.get(i)
+                article = Article(i, language='en',config=config)
+                article.download()
+                article.parse()
+                article.nlp()
+                data = article.text.lower()
+                list_two = data.split()
+                list_one = entity.split()
+                myFile = open(file2, "a")
+                common_kw = set(list_one) & set(list_two)
+                if len(common_kw) >= 2:
+                    myFile.write(i + "\n")
+                    print(i)
+                    print('Keyword matched')
+                else:
+                    print('Keyword not Matched')
+            except Exception as e:
+                print(e)
+
+
+        my_url = [ ]
+        with open(file2) as b:
+            my_url = [line.rstrip() for line in b]
+
+        # Summarize URL and save to the file
+        open(file3, "w").close()
+        myfile = open(file3, "w+")
+        for url in my_url:
+            try:
+                article = Article(url, config=config, language="en")
+                article.download()
+                article.parse()
+                article.nlp()
+                print(url)
+                myfile.write("\nPage Title: " + article.title + "\n")
+                myfile.write("\nPage URL: " + str(url) +"\n")
+                myfile.write("\nPage Summary:\n")
+                myfile.write(article.summary + "\n\n\n")
+            except Exception as e:
+                print(e)
+        de_moses = folder_name + '/' + 'due_diligence_summary.txt'        
+        a = Myfile(myfile=de_moses,entity=entity)
+        a.save()
+        return redirect('report')                        
+    else:
+        service = ['General Search', 'Social Media']
+        context = {'service':service}
+        return render(request, 'rms/media_check.html', context)
+
+
+def doc_insight(request):
+    if request.method == 'POST':
+        report = request.FILES['report']
+        file_name = request.FILES['report'].name
+
+        print(file_name)
+
+
+        fs = FileSystemStorage()
+        file = fs.save(report.name, report)
+        print(file)
+
+        location = 'C:/Users/Public/motech/DJANGO/ma/media/' + file_name + '2.pdf'
+        print('New file location is ', location)
+        report = 'C:/Users/Public/motech/DJANGO/ma/media/' + file
+        print('CV processed', report)
+
+        ocr(report, location)
+
+
+        with fitz.open(location) as doc:
+            text = ""
+            for page in doc:
+                text += page.getText()
+
+        print(text)
+        text = text.split()
+
+        cv = ['Skills', 'P.O.Box', 'REFERENCE', 'HOBBIES', 'INTERESTS' ,'SKILLS', 'Responsibilities', 'VITAE', 'PERSONAL', 'REFFEREES', 'CURRICULUM',
+                            'Email', 'Date of Birth', 'Marital Status', 'CURRICULUM VITAE', 'Place of', 'Mobile']
+        consent = ['Bibi Titi','Morogoro Road','4" Floor','+255 22 2136908','2136908','Employment Background','Box 4182','2136909','Mwl. Nyerere Building', 'Bibi Titi','@mwemadvocates.com','Background Check', 'Mwema Advocates', 'Check Authorization', 'MWEMA ADVOCATES']
+        form_iv = ['Certificate','Secondary' ,'Education','Certificate of Secondary Education','Civics','COMMERCE','BOOK-KEEPING','BASIC MATHEMATICS','CIVICS', 'attaining', 'CERTIFICATE', 'award', 'sat for Certificate of', 'SECONDARY','EDUCATION']
+
+
+        cv_check = set(text) & set(cv)
+        consent_check = set(text) & set(consent)
+        print(consent_check)
+        form_iv_check = set(text) & set(form_iv)
+        print(form_iv_check)
+        print(len(form_iv_check))
+        print(len(consent_check))
+        print(len(cv_check))
+        
+        res = []
+        if len(cv_check) >= 2:
+            print('CV Found')
+            if 'CURRICULUM VITAE' not in res:
+                res.append('CURRICULUM VITAE')
+                if len(form_iv_check) >= 2:
+                    print('Form IV Certificate Found')
+                    if 'Form Four Certificate' not in res:
+                        res.append('Form Four Certificate')
+                        if len(consent_check) >= 2:
+                            print('Consent Found')
+                            if 'Consent Found' not in res:
+                                res.append('Consent Found')
+        else:
+            print('no document found')
+
+        print(res)
+        if len(res) == 3:
+            prediction = 'Thanks All Documents Are Attached'
+        else:
+            prediction = res
+        context = {'prediction':prediction}
+        return render(request, 'rms/doc.html', context)
+    else:    
+        return render(request, 'rms/doc.html')
 
 
 
@@ -399,7 +656,7 @@ def usearch(request):
 
 
 
-def search(request):
+def search_ai(request):
     query = request.GET['q']
     print(type(query))
     print("Word T be searched", query)
@@ -777,6 +1034,10 @@ def out_letter(request):
 
 def index(request):
     return render(request, 'crow/index.html')
+
+
+def alpine(request):
+    return render(request, 'crow/test.html')
 
 
 def test(request):

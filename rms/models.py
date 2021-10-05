@@ -1,6 +1,35 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.html import escape, mark_safe
+from django.conf import settings
+
+
+
+
+class Myfile(models.Model):
+    myfile = models.FileField(upload_to='')
+    entity = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.entity
+
+    def delete(self, *args, **kwargs):
+        self.myfile.delete()
+        self.entity.delete()
+        super().delete(*args, **kwargs)
+
+
+
+class Files(models.Model):
+    myfile = models.FileField(upload_to='report/')
+    entity = models.CharField(max_length=1000, default='')
+
+    def __str__(self):
+        return self.myfile
+
+    def delete(self, *args, **kwargs):
+        self.myfile.delete()
+        super().delete(*args, **kwargs)
 
 
 class User(AbstractUser):
